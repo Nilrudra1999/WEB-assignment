@@ -1,4 +1,4 @@
-// Importing the required frameworks and modules -----------------------------------------------------
+// Importing the required frameworks, modules, and init global variables -----------------------------
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
@@ -8,13 +8,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const db = new MoviesDB();
-// Using 3000 as a fallback when the .env file is not working or not being read correctly
+
+// Using fallback values for important variables in cases where the .env file cannot being read correctly
 const HTTP_PORT = process.env.PORT || 3000;
+const DB_CONN_STR = process.env.MONGODB_CONN_STRING || "mongodb+srv://nmukhopadhyay:iu6euH9cZuUabHqA@sample-data.geyjw.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Sample-Data"
 
 
 // DataBase connection -------------------------------------------------------------------------------
 // Initializing the database connection using the environment variables file 
-db.initialize(process.env.MONGODB_CONN_STRING)
+db.initialize(DB_CONN_STR)
 .then(() => { 
     app.listen(HTTP_PORT, () => {
         console.log(`Server listening on: ${HTTP_PORT}`);
@@ -45,12 +47,12 @@ app.post('/api/movies', (req, res) => {
     });
 });
 
-// Get route with page and optional title filtering 
+// Get route with page and optional title filtering
 app.get('/api/movies', (req, res) => {
     const pg = parseInt(req.query.page) || 1;
     const perPg = parseInt(req.query.perPage) || 5;
     const title = req.query.title || "";
-    db.getAllMovies(page, perPage, title)
+    db.getAllMovies(pg, perPg, title)
     .then((movies) => {
         res.status(200).json(movies);
     })
@@ -73,7 +75,7 @@ app.get('/api/movies/:id', (req, res) => {
     });
 });
 
-// Put route to update an existing movie by ID 
+// Put route to update an existing movie by ID
 app.put('/api/movies/:id', (req, res) => {
     const movieID = req.params.id;
     const updatedData = req.body;
