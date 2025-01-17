@@ -111,3 +111,5 @@ app.delete('/api/movies/:id', (req, res) => {
         res.status(500).json({ message: "Failed to delete movie", error: err.message });
     });
 });
+
+module.exports = app;
