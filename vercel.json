@@ -9,7 +9,11 @@
     ],
     "routes": [
       {
-        "src": "/(.*)",
+        "src": "/",
+        "dest": "/api/movies"
+      },
+      {
+        "src": "/api/movies",
         "dest": "server.js"
       }
     ]
