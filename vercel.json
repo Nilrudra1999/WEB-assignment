@@ -13,7 +13,7 @@
         "dest": "/api/movies"
       },
       {
-        "src": "/api/movies",
+        "src": "/(.*)",
         "dest": "server.js"
       }
     ]
