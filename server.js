@@ -1,3 +1,15 @@
+/*********************************************************************************
+*  WEB422 – Assignment 1
+*  I declare that this assignment is my own work in accordance with Seneca Academic Policy.  
+*  No part of this assignment has been copied manually or electronically from any other source
+*  (including web sites) or distributed to other students.
+* 
+*  Name: Nilrudra Mukhopadhyay Student ID: 134061175 Date: 16/01/2025
+*  Vercel Link: _______________________________________________________________
+*
+********************************************************************************/
+
+
 // Importing the required frameworks, modules, and init global variables -----------------------------
 require('dotenv').config();
 const cors = require('cors');
@@ -8,15 +20,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const db = new MoviesDB();
-
 // Using fallback values for important variables in cases where the .env file cannot being read correctly
 const HTTP_PORT = process.env.PORT || 3000;
-const DB_CONN_STR = process.env.MONGODB_CONN_STRING || "mongodb+srv://nmukhopadhyay:iu6euH9cZuUabHqA@sample-data.geyjw.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Sample-Data"
 
 
 // DataBase connection -------------------------------------------------------------------------------
 // Initializing the database connection using the environment variables file 
-db.initialize(DB_CONN_STR)
+db.initialize(process.env.MONGODB_CONN_STRING)
 .then(() => { 
     app.listen(HTTP_PORT, () => {
         console.log(`Server listening on: ${HTTP_PORT}`);
