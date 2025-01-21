@@ -41,7 +41,7 @@ db.initialize(process.env.MONGODB_CONN_STRING)
 // Routes --------------------------------------------------------------------------------------------
 // Basic GET route for testing
 app.get('/', (req, res) => {
-    res.json({message: "API Listening"});
+    res.redirect('/api/movies');
 });
 
 // All necessary routes for the web API to work correctly
