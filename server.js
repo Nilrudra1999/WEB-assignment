@@ -26,7 +26,7 @@ const HTTP_PORT = process.env.PORT || 3000;
 
 // DataBase connection -------------------------------------------------------------------------------
 // Initializing the database connection using the environment variables file 
-db.initialize(process.env.MONGODB_CONN_STRING)
+db.initialize("mongodb+srv://nmukhopadhyay:iu6euH9cZuUabHqA@sample-data.geyjw.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Sample-Data")
 .then(() => { 
     app.listen(HTTP_PORT, () => {
         console.log(`Server listening on: ${HTTP_PORT}`);
