@@ -10,30 +10,18 @@
 ********************************************************************************/
 
 // Importing the required frameworks, modules, and init global variables -----------------------------
-require('dotenv').config();
-const cors = require("cors");
 const express = require('express');
-const MoviesDB = require("./modules/moviesDB.js");
-
 const app = express();
-app.use(cors());
-app.use(express.json());
+
+const cors = require("cors");
+require('dotenv').config();
+
+const MoviesDB = require("./modules/moviesDB.js");
 const db = new MoviesDB();
 const HTTP_PORT = 8080;
 
-
-
-// DataBase connection -------------------------------------------------------------------------------
-// Initializing the database connection using the environment variables file 
-db.initialize("mongodb+srv://nmukhopadhyay:iu6euH9cZuUabHqA@sample-data.geyjw.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Sample-Data")
-.then(()=>{
-    app.listen(HTTP_PORT, ()=>{
-        console.log(`server listening on: ${HTTP_PORT}`);
-    });
-})
-.catch((err) => {
-    console.error(err);
-});
+app.use(cors());
+app.use(express.json());
 
 
 
@@ -96,4 +84,18 @@ app.delete("/api/movies/:id", (req,res)=>{
     }).catch((err)=>{
         res.status(500).json({message: `an error occurred: ${err}`});
     });
+});
+
+
+
+// DataBase connection -------------------------------------------------------------------------------
+// Initializing the database connection using the environment variables file 
+db.initialize("mongodb+srv://nmukhopadhyay:iu6euH9cZuUabHqA@sample-data.geyjw.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Sample-Data")
+.then(()=>{
+    app.listen(HTTP_PORT, ()=>{
+        console.log(`server listening on: ${HTTP_PORT}`);
+    });
+})
+.catch((err) => {
+    console.error(err);
 });
