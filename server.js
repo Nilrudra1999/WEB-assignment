@@ -20,18 +20,14 @@ const MoviesDB = require("./modules/moviesDB.js");
 const db = new MoviesDB();
 const HTTP_PORT = 8080;
 
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors());
 app.use(express.json());
 
 
 
 // Routes --------------------------------------------------------------------------------------------
 app.get('/', (req, res) => {
-    res.redirect('/api/movies');
+    res.json({message: "API Listening"});
 });
 
 // All necessary routes for the web API to work correctly
