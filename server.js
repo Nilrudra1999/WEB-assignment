@@ -21,6 +21,12 @@ const db = new MoviesDB();
 const HTTP_PORT = 8080;
 
 app.use(cors());
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Add other methods if needed
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Add other headers if needed
+    next();
+});
 app.use(express.json());
 
 
